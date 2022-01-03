@@ -39,3 +39,15 @@ end
     action :delete
   end
 end
+
+[
+  '/opt/opscode/sv/elasticsearch',
+  '/opt/opscode/embedded/elasticsearch',
+  '/opt/opscode/service/elasticsearch',
+  '/var/log/opscode/elasticsearch/'
+].each do |dir_name|
+  directory dir_name do
+    recursive true
+    action :delete
+  end
+end
