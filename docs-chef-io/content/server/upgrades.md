@@ -56,7 +56,7 @@ Set the `postgresql['pg_upgrade_timeout']` attribute in [chef-server.rb]({{< rel
 
 {{</note >}}
 
-##### Database Preparation
+##### Database Preparation (No database preparation for frontends in chef Backend HA)
 
 1. Run `VACUUM FULL` on the PostgreSQL database if you don't have automatic vacuuming set up. This process will reduce the size of the database by deleting unnecessary data and speeds up the migration. The `VACUUM FULL` operation takes around 1 to 2 minutes per gigabyte of data depending on the complexity of the data, and requires free disk space at least as large as the size of your database.
 
@@ -105,6 +105,11 @@ For more information on password generation, including a list of supported add-o
 If you are running a Chef Infra Server release before 12.3.0, please contact Chef Support for guidance on upgrading your Chef Infra Server installation.
 
 ## Chef Infra Server 14 Upgrade Process
+
+### Frontends in a Chef Backend HA
+
+Skip the first two steps in the Standalone Server section, then proceed to install the package and upgrade. Also skip the final reindex step.
+Anything to do with the database in a Chef Backend cluster will happen on the backend cluster.
 
 ### Standalone Server
 
