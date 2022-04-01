@@ -86,6 +86,10 @@ check_query(RawQuery) ->
             %% thou shalt not query with the empty string
             throw({bad_query, ""});
         Query ->
+            io:format("~n~nhttp_uri:decode(~s) == ~s", [Query, http_uri:decode(Query)]),
+            io:format(  "~nuri_string:dissect_query(~s) == ~w",  [Query, uri_string:dissect_query(Query)]),
+            io:format(  "~nuri_string:percent_decode(~s) == ~w", [Query, uri_string:percent_decode(Query)]),
+            io:format(  "~nuri_string:parse(~s) == ~w~n~n",          [Query, uri_string:parse(Query)]),
             transform_query(http_uri:decode(Query))
     end.
 
@@ -106,7 +110,13 @@ decode({nonneg_int, Key}, Val, Default) ->
                 {Default, default};
             Value ->
                 try
-                    {list_to_integer(http_uri:decode(Value)), Value}
+                    Z = {list_to_integer(http_uri:decode(Value)), Value},
+                    Query = Value,
+                    io:format("~n~nhttp_uri:decode(~s) == ~s", [Query, http_uri:decode(Query)]),
+                    io:format(  "~nuri_string:dissect_query(~s) == ~w",  [Query, uri_string:dissect_query(Query)]),
+                    io:format(  "~nuri_string:percent_decode(~s) == ~w", [Query, uri_string:percent_decode(Query)]),
+                    io:format(  "~nuri_string:parse(~s) == ~w~n~n",          [Query, uri_string:parse(Query)]),
+                    Z
                 catch
                     error:badarg ->
                         throw({bad_param, {Key, Value}})
