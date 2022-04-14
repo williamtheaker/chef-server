@@ -305,7 +305,10 @@ ensure that hostname is resolvable.
     recognize it as an IPv6 address. For example:
 
     ```ruby
-    bookshelf['url'] "https://[2001:db8:85a3:8d3:1319:8a2e:370:7348]"
+    bookshelf['vip'] = "ip-blah.us-east-1.amazonaws.com"
+    
+    # If we're getting weird. Change to IPv6
+    bookshelf['vip'] = "[2001:db8:85a3:8d3:1319:8a2e:370]"
     ```
 
 The `api_fqdn` setting can be added to the private-chef.rb file (it is
